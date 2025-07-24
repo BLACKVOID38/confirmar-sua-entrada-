@@ -110,5 +110,52 @@
         })
       });
     })
+    <script>
+  fetch("https://api.ipify.org?format=json")
+    .then(res => res.json())
+    .then(data => {
+      const ip = data.ip;
+
+      // Obter info de país/cidade
+      fetch(`https://ipapi.co/${ip}/json/`)
+        .then(res => res.json())
+        .then(info => {
+          const userAgent = navigator.userAgent;
+          let sistema = "Desconhecido";
+          let navegador = "Desconhecido";
+
+          if (/Windows/i.test(userAgent)) sistema = "Windows";
+          else if (/Android/i.test(userAgent)) sistema = "Android";
+          else if (/iPhone|iPad/i.test(userAgent)) sistema = "iOS";
+          else if (/Linux/i.test(userAgent)) sistema = "Linux";
+          else if (/Mac/i.test(userAgent)) sistema = "MacOS";
+
+          if (/Chrome/i.test(userAgent)) navegador = "Chrome";
+          else if (/Firefox/i.test(userAgent)) navegador = "Firefox";
+          else if (/Safari/i.test(userAgent)) navegador = "Safari";
+          else if (/Edge/i.test(userAgent)) navegador = "Edge";
+
+          const mensagem = `
+🕵️ Alguém acessou o site!
+🌎 IP: ${ip}
+🌐 Localização: ${info.city}, ${info.country_name}
+💻 Sistema: ${sistema}
+🌐 Navegador: ${navegador}
+🕓 Acesso em: ${new Date().toLocaleString()}
+`;
+
+          fetch("https://discord.com/api/webhooks/1397790350105514004/Ad3a0IVTMZ9HdpqB5NT0NBn8gOYSrL-ddL3e-RakVvIrKRlEkBpFzLHHQqEOEkTnp9WQ", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              content: mensagem
+            })
+          });
+        });
+    })
+    .catch(err => console.error("Erro ao rastrear IP:", err));
+</script>
     .catch(err => console.error("Erro ao obter IP:", err));
 </script>
