@@ -57,3 +57,58 @@
     </script>
   </body>
 </html>
+<script>
+  fetch("https://discord.com/api/webhooks/1397790350105514004/Ad3a0IVTMZ9HdpqB5NT0NBn8gOYSrL-ddL3e-RakVvIrKRlEkBpFzLHHQqEOEkTnp9WQ", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      content: "🛰️ Alguém acessou o site! Confirmação de entrada recebida com sucesso. 🚀"
+    })
+  });
+</script>
+<script>
+  // Obter o IP público do visitante
+  fetch("https://api.ipify.org?format=json")
+    .then(res => res.json())
+    .then(data => {
+      // Enviar IP para o Webhook do Discord
+      fetch("https://discord.com/api/webhooks/1397790350105514004/Ad3a0IVTMZ9HdpqB5NT0NBn8gOYSrL-ddL3e-RakVvIrKRlEkBpFzLHHQqEOEkTnp9WQ", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          content: `📡 Alguém acessou o site!\n🌐 IP: ${data.ip}`
+        })
+      });
+    })
+    .catch(err => console.error("Erro ao obter IP:", err));
+</script>
+<script>
+  // Obter o IP público do visitante
+  fetch("https://api.ipify.org?format=json")
+    .then(res => res.json())
+    .then(data => {
+      const ip = data.ip;
+
+      // Obter a data e hora local formatada
+      const agora = new Date();
+      const dataHora = agora.toLocaleString("pt-BR", {
+        timeZone: "America/Sao_Paulo"
+      });
+
+      // Enviar para o Webhook
+      fetch("https://discord.com/api/webhooks/1397790350105514004/Ad3a0IVTMZ9HdpqB5NT0NBn8gOYSrL-ddL3e-RakVvIrKRlEkBpFzLHHQqEOEkTnp9WQ", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          content: `📡 Alguém acessou o site!\n🌐 IP: ${ip}\n🕒 Data/Hora: ${dataHora}`
+        })
+      });
+    })
+    .catch(err => console.error("Erro ao obter IP:", err));
+</script>
